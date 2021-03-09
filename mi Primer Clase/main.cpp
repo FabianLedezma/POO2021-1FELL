@@ -100,6 +100,86 @@ float Rectangulo :: getAncho(){
     return this -> ancho;
 }
 
+class Triangulo{
+    private:
+        float base;
+        float altura;
+        float lado1;
+        float lado2;
+    public:
+        Triangulo();
+        Triangulo(float base, float altura, float lado1, float lado2);
+        void calcularArea();
+        void calcularPerimetro(); 
+        void setBase(float base);
+        void setAltura(float altura);
+        void setLado1(float lado1);
+        void setLado2(float lado2);
+        float getBase();
+        float getAltura();
+        float getLado1();
+        float getLado2();
+};
+
+Triangulo :: Triangulo(){
+    this->base = 0;
+    this->altura = 0;
+    this->lado1 = 0;
+    this->lado2 = 0;
+}
+
+Triangulo :: Triangulo(float base, float altura, float lado1, float lado2){
+    this->base = base;
+    this->altura = altura;
+    this->lado1 = lado1;
+    this->lado2 = lado2;
+}
+
+void Triangulo :: calcularArea(){
+    float area;
+    area = base*altura;
+    cout << "el triangulo tiene un area  de: "<< area << endl;
+}
+
+void Triangulo :: calcularPerimetro(){
+    float perimetro;
+    perimetro = base + lado1 + lado2;
+    cout << "El perimetro del triangulo es: "<< perimetro << endl;
+
+}
+
+void Triangulo :: setBase(float base){
+    this->base = base;
+}
+
+void Triangulo :: setAltura(float altura){
+    this->altura = altura;
+}
+
+void Triangulo :: setLado1(float lado1){
+    this->lado1 = lado1;
+}
+
+void Triangulo :: setLado2(float lado2){
+    this->lado2 = lado2;
+}
+
+float Triangulo :: getBase(){
+    return this->base;
+}
+
+float Triangulo :: getAltura(){
+    return this->altura;
+}
+
+float Triangulo :: getLado1(){
+    return this->lado1;
+}
+
+float Triangulo :: getLado2(){
+    return this->lado2;
+}
+
 void menu(){
     cout << endl;
     cout << "Ingrese la opcion que decea realizar: \n"<< endl;
@@ -107,6 +187,8 @@ void menu(){
     cout << "2. Mostrar circulos "<< endl;
     cout << "3. Crear un nuevo rectangulo"<< endl;
     cout << "4. Mostrar rectangulos"<<endl;
+    cout << "5. Crear triangulo" << endl;
+    cout << "6. Mostrar triangulos:"<< endl;
     cout << "0. exit " << endl;
     cout << "opc = ";
 }
@@ -153,10 +235,40 @@ void mostrarRectangulos(Rectangulo rectangulos[CAP], int cantRectangulos){
     }
 }
 
+void crearTriangulo( Triangulo triangulos[CAP], int cantTriangulos ){
+    float base, altura, lado1, lado2;
+    cout << "Ingrese la base del triangulo: ";
+    cin >> base;
+    cout << "Ingrese la altura del triangulo: ";
+    cin >> altura;
+    cout << "Ingrese el lado 1 del triangulo: ";
+    cin >> lado1;
+    cout << "Ingrese el lado 2 del triangulo: ";
+    cin >> lado2;
+    triangulos[cantTriangulos].setBase(base);
+    triangulos[cantTriangulos].setAltura(altura);
+    triangulos[cantTriangulos].setLado1(lado1);
+    triangulos[cantTriangulos].setLado2(lado2);
+}
+
+void mostrarTriangulos( Triangulo triangulos[CAP], int cantTriangulos ){
+    int i;
+    cout << endl;
+    for(i = 0; i < cantTriangulos; i++){
+        cout<< "Triangulo "<< i+1 << endl;
+        cout << "base: "<< triangulos[i].getBase() << " altura: "<< triangulos[i].getAltura()<<endl;
+        cout << "Lado 1: " << triangulos[i].getLado1() << " Lado 2: " << triangulos[i].getLado2() << endl;
+        triangulos[i].calcularArea();
+        triangulos[i].calcularPerimetro();
+        cout<<endl;
+    }
+}
+
 int main(){
     Circulo circulos[CAP];
     Rectangulo rectangulos[CAP];
-    int cantCirculos = 0, cantRectangulos = 0, opc;
+    Triangulo triangulos[CAP];
+    int cantCirculos = 0, cantRectangulos = 0, cantTriangulos = 0, opc;
     do{
         menu();
         cin >> opc;
@@ -184,6 +296,18 @@ int main(){
                 break;
             case 4:
                 mostrarRectangulos(rectangulos, cantRectangulos);
+                break;
+            case 5:
+                if(cantTriangulos < CAP){
+                    crearTriangulo(triangulos, cantTriangulos);
+                    cantTriangulos++;
+                }
+                else{
+                    cout << "El arreglo de triangulos esta lleno D-:"<<endl;
+                }
+                break;
+            case 6:
+                mostrarTriangulos(triangulos, cantTriangulos);
                 break;
         }
 
